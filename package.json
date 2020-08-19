@@ -1,0 +1,26 @@
+{
+  "name": "npm",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build:css": "npm run scss && npm run autoprefixer",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "scss": "node-sass --indent-type tab --output-style expanded src/sass/ -o dist/css/",
+    "autoprefixer": "postcss -u autoprefixer -r dist/css/*",
+    "uglify": "mkdir -p dist/js & uglifyjs src/js/*.js -m -o dist/js/app.js",
+    "serve": "browser-sync start --server --files 'dist/css/*.css, dist/js/*.js'",
+    "build:watch": "onchange \"src/sass/*.scss\" -- npm run build:css"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "autoprefixer": "^9.8.6",
+    "node-sass": "^4.14.1",
+    "onchange": "^7.0.2",
+    "postcss-cli": "^7.1.1"
+  },
+  "dependencies": {
+    "uglify-js": "^3.10.1"
+  }
+}
