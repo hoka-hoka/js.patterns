@@ -4,23 +4,41 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build:css": "npm run scss && npm run autoprefixer",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "scss": "node-sass --indent-type tab --output-style expanded src/sass/ -o dist/css/",
+    "compile": "tsc",
+    "build:css": "run-s scss",
+    "scss": "node-sass --indent-type tab --output-style expanded src/sass/ -o src/css/",
     "autoprefixer": "postcss -u autoprefixer -r dist/css/*",
-    "uglify": "mkdir -p dist/js & uglifyjs src/js/*.js -m -o dist/js/app.js",
-    "serve": "browser-sync start --server --files 'dist/css/*.css, dist/js/*.js'",
-    "build:watch": "onchange \"src/sass/*.scss\" -- npm run build:css"
+    "deploy": "autoprefixer uglifyjs",
+    "uglifyjs": "uglifyjs-folder --config-file \"./uglify.config.json\" dist/js/ -eo dist/js-min",
+    "babel": "babel src/js --out-dir src/js",
+    "build:js": "run-s compile babel",
+    "serve": "browser-sync start --server --watch --files 'src/css/*.css, src/js/*.js'",
+    "watch:css": "onchange \"src/sass/*.scss\" -- npm run build:css",
+    "watch:js": "onchange \"src/ts/*.ts\" -- npm run build:js",
+    "watch": "run-p serve watch:*",
+    "list": "npm-run-all build:css build:js",
+    "build": "run-s list watch"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@babel/cli": "^7.10.5",
+    "@babel/core": "^7.11.1",
+    "@babel/node": "^7.10.5",
+    "@babel/preset-env": "^7.11.0",
+    "@types/jquery": "^3.5.1",
     "autoprefixer": "^9.8.6",
+    "browser-sync": "^2.26.12",
     "node-sass": "^4.14.1",
+    "npm-run-all": "^4.1.5",
     "onchange": "^7.0.2",
-    "postcss-cli": "^7.1.1"
+    "parallelshell": "^3.0.2",
+    "postcss-cli": "^7.1.1",
+    "typescript": "^4.0.2",
+    "uglifyjs-folder": "^2.0.0"
   },
   "dependencies": {
-    "uglify-js": "^3.10.1"
+    "@babel/polyfill": "^7.10.4",
+    "jquery": "^3.5.1"
   }
 }
