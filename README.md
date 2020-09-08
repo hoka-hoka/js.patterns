@@ -26,9 +26,9 @@ Publisher-Subscriber очень похож на Observer. Subject уведомл
 Реализация PubSub намного гибче, чем Observer, к тому же его можно использовать, как Observer, возможно, именно поэтому число реализаций плагинов PubSub преобладает над плагинами Observer.
 
 <p align="center">
-  <img src=""/>
+  <img src="https://github.com/hoka-hoka/js.patterns/blob/master/src/img/Observer_PubSub.png"/>
 </p>
-<div align="center">Рисунок 1 - </div>
+<div align="center">Рисунок 1 - Шаблоны Observer и PubSub</div>
 
 Subscribers - это подписчики. Внутри этого объекта хранятся пары ключ/значение событий. Каждое событие будет иметь ключ, соответствующий имени события, и значение, установленное для массива. В этом масиве регистрируются/хранятся обработанные вызовы подписчиков.
 
